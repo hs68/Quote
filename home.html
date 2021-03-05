@@ -1,0 +1,72 @@
+<html>
+    <head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    </head>
+    <body>
+        <!-- <div id="quotes"></div>
+        <div id="author"></div>
+
+        <button id="Newq"> New quotes </button>
+        <button id="tweetme"> Tweet </button> -->
+        <div class="container">
+            <div class="inner">
+                <div class="box">
+                    <p class="Number">
+                        <img src="logo.png" alt="tweet-me" title="tweet-me" id="tweetme"/>
+                    </p>
+                    <div class="text">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        <p id="quotes"></p>
+                        <p id="author"></p>
+
+                    </div>
+                    <label class="button">
+                        <p id="Newq">New Quotes</p>
+                        
+                    </label>
+                </div>
+
+            </div>
+        </div>
+        <script>
+            const api="https://type.fit/api/quotes";
+            
+            let realdata="";
+            let quotesdata="";
+            const quotes=document.getElementById('quotes');
+            const author=document.getElementById('author');
+            const newq=document.getElementById("Newq");
+            const tweet=document.getElementById("tweetme");
+
+
+            const getnewquotes=()=>{
+                let rnum= Math.floor(Math.random()*10);
+                quotesdata=realdata[rnum];
+                quotes.innerText=`${realdata[rnum].text}`;
+                author.innerText=`${realdata[rnum].author}`;
+
+            }
+            
+            const posttweet=()=>{
+                const tweetpost=`https://twitter.com/intent/tweet?text=${quotesdata.text} ${quotesdata.author} `;
+                window.open(tweetpost);
+            }
+            
+            const getquotes=async()=>{
+                try{
+                    let data= await fetch(api);
+                    realdata= await data.json();
+                    getnewquotes();
+
+                }catch(error){
+
+                }
+            }
+            getquotes();
+
+            newq.addEventListener('click',getnewquotes);
+            tweet.addEventListener('click',posttweet);
+
+        </script>
+    </body>
+</html>
